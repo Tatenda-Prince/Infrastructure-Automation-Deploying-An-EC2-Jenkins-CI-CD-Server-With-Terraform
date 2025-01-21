@@ -531,7 +531,7 @@ In the AWS Management Console, head to the EC2 dashboard and verify that the Jen
 
 If you scroll down and click on the EC2’s Security tab you should also be able to see the s3-jekins_role created along with the security group jenkins-sg.
 
-![image_alt]()
+![image_alt](https://github.com/Tatenda-Prince/Infrastructure-Automation-Deploying-An-EC2-Jenkins-CI-CD-Server-With-Terraform/blob/c19bea5608559ea5baf876eb5ece23b2e126aa0c/images/Screenshot%202025-01-21%20110830.png)
 
 
 Scroll down again and view the inbound rules of the security group. Verify that it matches the desired configuration of allowing ports 22, 443 and 8080 from anywhere.
