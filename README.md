@@ -548,13 +548,89 @@ Now, head to the S3 dashboard and verify that the S3 bucket was created.
 Click on your bucket, select the Permission tab and hover the mouse over Access. As configured, the S3 bucket is not public.
 
 
-![image_alt]()
+![image_alt](https://github.com/Tatenda-Prince/Infrastructure-Automation-Deploying-An-EC2-Jenkins-CI-CD-Server-With-Terraform/blob/e3a5b6f0ef30d187ebe4c89f8cc4ce5e77a3b1f4/images/Screenshot%202025-01-21%20111153.png)
 
 Now that we have validated all our resources have been created by Terraform, let’s head to Step 10 to connect into the Jenkins Server and verify that Jenkins service is running.
 
 ## Step 10: SSH to EC2 Instance and verify Jenkins service is running
 
 In the EC2 dashboard, click on the Jenkins server, then click Connect on the top right.
+
+
+![image_alt]()
+
+
+Select EC2 Instance Connect, then click Connect or SSH Client
+
+
+![image_alt]()
+
+Once connected, run the following command to get the status of the Jenkins service —
+
+`systemctl status jenkins`
+
+
+You should be be able to see that the Jenkins server is active (running).
+
+![image_alt]()
+
+Copy and save the Jenkins administrator password which is shown at the end of the first line that start with a date. In this case, to get your password run this command `sudo cat /var/lib/jenkins/secrets/initialAdminPassword`. This will be used to unlock Jenkins once we connect to it over the browser.
+
+
+## Step 11: Connect to Jenkins Server from Browser
+
+Open up you desired browser and paste the public IP address of the Jenkins Server mapped to port 8080 in the format below —
+
+`<public_ip_address>:8080`
+
+
+## Success!
+
+If you did all the steps correctly, you should now be connected to your Jenkins server! You’ve used Terraform to automatically deploy your AWS infrastructure by leveraging the power of Infrastructure as Code!
+
+
+## Set up Jenkins
+
+We can now proceed to set up the Jenkins Server by pasting the administrator password in the field provided, then clicking Continue.
+
+![image_alt]()
+
+
+Select Install suggested plugins, then go through the rest of prompts.
+
+
+![image_alt]()
+
+Fill in the fields to create your admin user, then continue.
+
+
+At the end you should be greated with the awesome message, “Jenkins is ready!”
+
+![image_alt]()
+
+
+## Success!
+
+You’ve just set up your first Jenkins Server running on an Amazon EC2 instance deployed by Terraform.
+
+
+
+## Step 12: Verify that IAM role allows S3 bucket access from Jenkins Server
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
