@@ -623,7 +623,7 @@ You’ve just set up your first Jenkins Server running on an Amazon EC2 instance
 
 Head to S3 in the AWS Management Console, select the S3 bucket, then click Upload to upload a file to the S3 bucket.
 
-![image_alt]()
+![image_alt](https://github.com/Tatenda-Prince/Infrastructure-Automation-Deploying-An-EC2-Jenkins-CI-CD-Server-With-Terraform/blob/3fad22af41bc117500238c3f86a29e739b3f4933/images/Screenshot%202025-01-21%20132033.png)
 
 Select your file then click Upload. In this demonstration, I will be uploading the David Wallace Foster "This is water" commencement speech.pdf file.
 
