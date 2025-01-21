@@ -563,7 +563,7 @@ In the EC2 dashboard, click on the Jenkins server, then click Connect on the top
 Select EC2 Instance Connect, then click Connect or SSH Client
 
 
-![image_alt]()
+![image_alt](https://github.com/Tatenda-Prince/Infrastructure-Automation-Deploying-An-EC2-Jenkins-CI-CD-Server-With-Terraform/blob/3eb40aa5cd226d9bf1c7f68c52b0dd7fb7f6bf25/images/Screenshot%202025-01-21%20111248.png)
 
 Once connected, run the following command to get the status of the Jenkins service —
 
