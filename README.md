@@ -124,7 +124,206 @@ You are an Infrastructure Automation Engineer at Up The Chelsea. Your team wants
 
  Run `terraform version` to verify the latest version is installed on your your Visual Code Studio terminal.
 
- ![image_alt]()
+ ![image_alt](https://github.com/Tatenda-Prince/Infrastructure-Automation-Deploying-An-EC2-Jenkins-CI-CD-Server-With-Terraform/blob/b137e9cf464cfb179bd3ceb0433f5e4f8ef55a25/images/Screenshot%202025-01-21%20141808.png)
+
+
+ ## Step 1: Create providers.tf Terraform file
+
+ `nano providers.tf`
+
+ Copy and paste the code below into the text editor, press “Ctrl and O” key together to save the file, then press Enter. Press “Ctrl and X” to exit the text editor.
+
+```language
+# Configure the AWS Provider
+provider "aws" {
+  region = var.aws_region
+}
+```
+
+## Code explanation
+
+This code configures the AWS provider with a specific region. The provider block is used to define the details of the AWS provider and inside the block contains its configuration options.
+
+The region argument is set to the value of the variable var.aws_region.By using this syntax, Terraform will look for a variable named aws_region in the current workspace. We will see how we can define this variable in a separate variables.tf file.
+
+## Step 2: Create Jenkins server’s security group Terraform configuration file
+
+To fulfill our objectives, we need to create a security group for the Jenkins EC2 server and allow the appropriate ports so we can connect to the server over the internet.
+
+Run the following command to create the file using the nano text editor —
+
+`nano jenkins-sg.tf`
+
+Again, copy and paste the code below into the text editor, save the file, then exit it as previously done in Step 1.
+
+```language
+#Jenkins Security Group Resource
+resource "aws_security_group" "jenkins-sg" {
+  name        = "jenkins-sg"
+  description = "Allow Port 22 and 8080"
+
+  ingress {
+    description = "Allow SSH Traffic"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    description = "Allow HTTPS Traffic"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    description = "Allow 8080 Traffic"
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+```
+
+## Code explanation
+
+This Terraform code defines an AWS security group resource for the Jenkins server. A security group acts as a virtual firewall that controls inbound and outbound traffic to and from the EC2 instance.
+
+The resource block defines the resource type aws_security_group and its name jenkins-sg. The description field provides a brief description of the security group.
+
+The ingress blocks specify the inbound traffic rules for the security group. There are three ingress blocks, each allowing traffic on different ports (22, 443, and 8080) using the TCP protocol. The cidr_blocks argument specifies the IP address of range 0.0.0.0/0 to have access the Jenkins server, therefore allowing traffic from any IP address.
+
+The egress block specifies the outbound traffic rules for the security group. In this case, all outbound traffic is allowed. The from_port and to_port arguments are set to 0 and the protocol argument is set to -1 to allow any outbound traffic.
+
+## Step 3: Create IAM role that allows Jenkins server read/write access to S3 bucket
+
+We need an IAM Role to be assumed by the Jenkins server with a policy that allows S3 read/write access.
+
+This can be accomplished by creating a separate Terraform file called s3-iam-role.tf.
+
+Run the following command to create the file —
+
+`nano s3-iam-role.tf`
+
+Copy and paste the code below into the text editor, save the file, then exit.
+
+```language
+resource "aws_iam_role" "s3-jenkins-role" {
+  name = "s3-jenkins_role"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Principal = {
+          Service = "ec2.amazonaws.com"
+        }
+        Action = "sts:AssumeRole"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_policy" "s3-jenkins-rw-policy" {
+  name   = "s3-jenkins-rw-policy"
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "S3ReadWriteAccess",
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:PutObject",
+        "s3:ListBucket"
+      ],
+      "Resource": [
+        "arn:aws:s3:::${var.bucket}",
+        "arn:aws:s3:::${var.bucket}/*"
+      ]
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_iam_role_policy_attachment" "s3-jenkins-s3-access" {
+  policy_arn = aws_iam_policy.s3-jenkins-rw-policy.arn
+  role       = aws_iam_role.s3-jenkins-role.name
+}
+
+resource "aws_iam_instance_profile" "s3-jenkins-profile" {
+  name = "s3-jenkins-profile"
+  role = aws_iam_role.s3-jenkins-role.name
+}
+```
+## Code explanation
+
+The aws_iam_role resource defines a new IAM role called s3-jenkins_role that can be assumed by Jenkins EC2 instance. The assume_role_policy argument specifies a JSON-encoded policy that will allow the Jenkins EC2 instance to assume the role.
+
+The aws_iam_policy resource defines a new IAM policy called s3-jenkins-rw-policy that allows read and write access to the S3 bucket. The policy argument specifies the policy document in JSON format.
+
+The aws_iam_role_policy_attachment resource attaches the IAM policy to the IAM role by specifying the policy ARN and the role name.
+
+The aws_iam_instance_profile resource creates an IAM instance profile called s3-jenkins-profile and associates it with the IAM role. The instance profile will be used to launch the Jenkins EC2 instance with the IAM role and associated permissions.
+
+## Step 4: Create bash script file to automate installation of Jenkins on EC2 instance
+
+When we launch the EC2 instance, this bash script with run automatically as the EC2’s user data which will install and start the Jenkins service.
+
+Run the following command to create the file using the nano text editor —
+
+`nano install_jenkins.sh`
+
+Copy and paste the code below into the text editor, save the file, then exit.
+
+```language
+#!/bin/bash
+sudo yum update -y
+sudo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo
+sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+sudo yum upgrade -y
+sudo amazon-linux-extras install java-openjdk11 -y
+sudo yum install jenkins -y
+sudo systemctl enable jenkins
+sudo systemctl start jenkins
+```
+
+## Code explanation
+
+This bash script installs and starts Jenkins on the EC2 instance. Let’s go through what each command does:
+
+1.sudo yum update -y: This updates the package manager and all installed packages to their latest version.
+
+2.sudo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo: This downloads the Jenkins repository file and saves it to /etc/yum.repos.d/ directory.
+
+3.sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key: This imports the Jenkins GPG key to verify package integrity.
+
+4.sudo yum upgrade -y: This command upgrades all installed packages to their latest version.
+
+5.sudo amazon-linux-extras install java-openjdk11 -y: This command installs Java 11 from the Amazon Linux Extras repository.
+
+6.sudo yum install jenkins -y: This installs the Jenkins package from the Jenkins repository.
+
+7.sudo systemctl enable jenkins: This command enables the Jenkins service to start automatically on boot.
+
+8.sudo systemctl start jenkins: This command starts the Jenkins service.
+
+
+
+
+
 
  
 
