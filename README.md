@@ -627,7 +627,7 @@ Head to S3 in the AWS Management Console, select the S3 bucket, then click Uploa
 
 Select your file then click Upload. In this demonstration, I will be uploading the David Wallace Foster "This is water" commencement speech.pdf file.
 
-![image_alt]()
+![image_alt](https://github.com/Tatenda-Prince/Infrastructure-Automation-Deploying-An-EC2-Jenkins-CI-CD-Server-With-Terraform/blob/47c7db687374cffff79c103c3ada6637bcc6c749/images/Screenshot%202025-01-21%20132320.png)
 
 You should now be able to see your file successfully uploaded.
 
