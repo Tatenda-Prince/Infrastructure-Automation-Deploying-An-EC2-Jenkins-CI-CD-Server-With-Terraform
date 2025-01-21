@@ -489,7 +489,7 @@ In your Visual Code studio terminal, run the following command to initialize the
 
 After it has finished initializing, you will be greeted with a successful prompt, as shown below.
 
-![image_alt]()
+![image_alt](https://github.com/Tatenda-Prince/Infrastructure-Automation-Deploying-An-EC2-Jenkins-CI-CD-Server-With-Terraform/blob/5b861d367a1149d42cbaa7c3ec9b43d9f7700282/images/Screenshot%202025-01-21%20110049.png)
 
 
 Next, lets validate that our code doesn't have any syntax errors by running the following command —
