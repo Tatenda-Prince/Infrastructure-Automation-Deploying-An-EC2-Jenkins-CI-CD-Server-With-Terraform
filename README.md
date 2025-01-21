@@ -498,7 +498,7 @@ Next, lets validate that our code doesn't have any syntax errors by running the 
 
 You should receive a success message stating that the configuration is valid, as show below.
 
-![image_alt]()
+![image_alt](https://github.com/Tatenda-Prince/Infrastructure-Automation-Deploying-An-EC2-Jenkins-CI-CD-Server-With-Terraform/blob/ca7a670cb919624e0724f2bd82d391d9ca05de45/images/Screenshot%202025-01-21%20110120.png)
 
 
 Now let’s run the following command to generate a list of all the changes that Terraform will make —
