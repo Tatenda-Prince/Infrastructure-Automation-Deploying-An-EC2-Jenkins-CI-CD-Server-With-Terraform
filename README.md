@@ -522,7 +522,55 @@ Terraform will begin applying all the changes to the infrastructure. Be patient,
 
 Make sure to copy and save the Jenkins servers public IP address, as it will needed to access the Jenkins server from a browser.Take note that it only one resource appliead it because i had a error at the firts run and resource had passesd already. 
 
-Step 9: Verify Services — EC2 Instance, Security Group, IAM Role and S3 Bucket
+## Step 9: Verify Services — EC2 Instance, Security Group, IAM Role and S3 Bucket
+
+In the AWS Management Console, head to the EC2 dashboard and verify that the Jenkins server was launched.
+
+![image_alt]()
+
+
+If you scroll down and click on the EC2’s Security tab you should also be able to see the s3-jekins_role created along with the security group jenkins-sg.
+
+![image_alt]()
+
+
+Scroll down again and view the inbound rules of the security group. Verify that it matches the desired configuration of allowing ports 22, 443 and 8080 from anywhere.
+
+![image_alt]()
+
+
+Now, head to the S3 dashboard and verify that the S3 bucket was created.
+
+
+![image_alt]()
+
+
+Click on your bucket, select the Permission tab and hover the mouse over Access. As configured, the S3 bucket is not public.
+
+
+![image_alt]()
+
+Now that we have validated all our resources have been created by Terraform, let’s head to Step 10 to connect into the Jenkins Server and verify that Jenkins service is running.
+
+## Step 10: SSH to EC2 Instance and verify Jenkins service is running
+
+In the EC2 dashboard, click on the Jenkins server, then click Connect on the top right.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
