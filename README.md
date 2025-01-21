@@ -593,7 +593,7 @@ If you did all the steps correctly, you should now be connected to your Jenkins 
 
 We can now proceed to set up the Jenkins Server by pasting the administrator password in the field provided, then clicking Continue.
 
-![image_alt]()
+![image_alt](https://github.com/Tatenda-Prince/Infrastructure-Automation-Deploying-An-EC2-Jenkins-CI-CD-Server-With-Terraform/blob/c321547e279f6f09171af1c1a989fe6211906371/images/Screenshot%202025-01-21%20131126.png)
 
 
 Select Install suggested plugins, then go through the rest of prompts.
