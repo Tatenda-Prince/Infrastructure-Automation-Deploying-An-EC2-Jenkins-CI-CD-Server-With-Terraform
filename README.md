@@ -599,7 +599,7 @@ We can now proceed to set up the Jenkins Server by pasting the administrator pas
 Select Install suggested plugins, then go through the rest of prompts.
 
 
-![image_alt]()
+![image_alt](https://github.com/Tatenda-Prince/Infrastructure-Automation-Deploying-An-EC2-Jenkins-CI-CD-Server-With-Terraform/blob/dff261fdcaeb5b0236e1b2270a57b20a58731615/images/Screenshot%202025-01-21%20131200.png)
 
 Fill in the fields to create your admin user, then continue.
 
