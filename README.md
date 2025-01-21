@@ -320,6 +320,218 @@ This bash script installs and starts Jenkins on the EC2 instance. Let’s go thr
 
 8.sudo systemctl start jenkins: This command starts the Jenkins service.
 
+## Step 5: Create main.tf Terraform file
+
+The main.tf Terraform file contains the main set of configuration for your module.
+
+Run the following command to create the file using the nano text editor —
+
+`nano main.tf`
+
+Copy and paste the code below into the text editor, save the file, then exit.
+
+```language
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 4.0"
+    }
+  }
+}
+
+resource "aws_instance" "jenkins" {
+  ami                         = var.ami
+  instance_type               = var.instance_type
+  key_name                    = var.key_name
+  associate_public_ip_address = var.associate_public_ip_address
+  vpc_security_group_ids      = [aws_security_group.jenkins-sg.id]
+  user_data                   = file("install_jenkins.sh")
+  iam_instance_profile        = aws_iam_instance_profile.s3-jenkins-profile.name
+
+  tags = {
+    Name = var.jenkins-tag-name
+  }
+}
+
+resource "aws_s3_bucket" "jenkins-s3-bucket" {
+  bucket = var.bucket
+
+  tags = {
+    Name = var.jenkins-tag-name
+  }
+}
+
+resource "aws_s3_bucket_acl" "jenkins-s3-acl" {
+  bucket = aws_s3_bucket.jenkins-s3-bucket.id
+  acl    = "private"
+  
+}
+```
+
+## Code explanation 
+
+This Terraform code contains resource blocks that define infrastructure resources that will be provisioned in AWS.
+
+The terraform block declares aws as the required provider and specifies the source and version. The provider is responsible for managing and interacting with resources in AWS.
+
+The resource block defines an EC2 instance resource with the name jenkins. It defines attributes like the Amazon Machine Image (AMI) to use, the instance type, the security group and tags. The user_data attribute specifies the install_jenkins.sh script to run when the instance is launched.
+
+The aws_s3_bucket resource block defines an S3 bucket, and aws_s3_bucket_acl block sets the access control list (ACL) for the S3 bucket.
+
+## Step 6: Create Terraform file that stores configuration variables
+
+To prevent us from hard coding arguments in our main.tf file or other files, we can define variables in the variables.tf file that can be used throughout the Terraform environment. Variables are used to parameterize Terraform code, making it more reusable and configurable.
+
+Let’s create the file —
+
+`nano variables.tf`
+
+Copy and paste the code below into the text editor, save the file, then exit.
+
+```language
+variable "aws_region" {
+  default = "us-west-1"
+  type    = string
+}
+
+variable "ami" {
+  default = "ami-0118dc74bd8f98b13"
+  type    = string
+}
+
+variable "instance_type" {
+  default = "t2.micro"
+  type    = string
+}
+
+variable "key_name" {
+  default = "princeKeypair"
+  type    = string
+}
+
+variable "associate_public_ip_address" {
+  default = "true"
+  type    = bool
+}
+
+variable "jenkins-tag-name" {
+  default = "Jenkins-Server"
+  type    = string
+}
+
+variable "bucket" {
+  default = "jenkins-s3-bucket-mario-moyo20"
+  type    = string
+}
+
+variable "acl" {
+  default = "private"
+  type    = string
+}
+
+variable "policy_arn" {
+  default = "arn:aws:iam::aws:policy/AmazonS3ReadWriteAccess"
+  type    = string
+}
+```
+
+## Code explanation
+
+This Terraform code defines several input variables that are used throughout of Terraform infrastructure deployment.
+
+Let me give an explanation of each variable:
+
+1.aws_region: Specifies the AWS region where the infrastructure should be deployed which has a default value of us-west-1.
+
+2.ami: Specifies the ID of the Amazon Machine Image (AMI) that should be used to launch the EC2 instance. This variable has a default value of ami-0118dc74bd8f98b13, which corresponds to an Amazon Linux 2 AMI.
+
+3.instance_type: Specifies the t2.micro instance type of the EC2 instance which is a low-cost, general-purpose instance type.
+
+4.key_name: Specifies the name of the key pair that should be used to connect to the EC2 instance. This variable has a default value of princeKeypair.
+
+5.associate_public_ip_address: Specifies whether the EC2 instance should be launched with a public IP address and has the default value of true.
+
+6.jenkins-tag-name: Specifies the name of the tag that should be applied to the EC2 instance and S3 bucket resources and has a default value of Jenkins-Server.
+
+7.bucket: Specifies the name of the S3 bucket that should be created to the value of jenkins-s3-bucket-mario-moyo20.
+
+8.acl: Specifies the access control list (ACL) that should be applied to the S3 bucket. This variable has a default value of private.
+
+## Step 7: Create output Terraform file to show the Jenkins Server’s Public IP Address
+
+The output.tf file can be used to reference the public IP address of the Jenkins server instance. It will be displayed as part of the Terraform output after the infrastructure has been created or updated to be used to connect to the Jenkins server through a browser.
+
+Let’s create the file —
+
+`nano output.tf`
+
+Copy and paste the code below into the text editor, save the file, then exit.
+
+```language
+#Jenkins Server Output
+output "instance_public_ip" {
+  value = aws_instance.jenkins.public_ip
+}
+```
+
+## Code explanation
+
+This Terraform code defines an output named instance_public_ip that will expose the public IP address of an AWS EC2 instance running the Jenkins server.
+
+The value attribute is set to aws_instance.jenkins.public_ip, which means that the output value will be the public IP address of the aws_instance resource named jenkins.
+
+## Step 8: Terraform init, validate, plan and apply
+
+In your Visual Code studio terminal, run the following command to initialize the required providers —
+
+`terraform init`
+
+After it has finished initializing, you will be greeted with a successful prompt, as shown below.
+
+![image_alt]()
+
+
+Next, lets validate that our code doesn't have any syntax errors by running the following command —
+
+`terraform validate`
+
+You should receive a success message stating that the configuration is valid, as show below.
+
+![image_alt]()
+
+
+Now let’s run the following command to generate a list of all the changes that Terraform will make —
+
+`terraform plan`
+
+You should be able to see listed all the changes Terraform is expect to make to the infrastructure resources. The “+” sign is what is going to be added and the “ — ”is what is going to be destroyed.
+
+![image_alt]()
+
+
+Now let’s deploy this bad boy! Run the following command to apply the changes and deploy the infrastructure resources.
+
+Note — Make sure to type “yes” to agree to the changes after running this command
+
+`terraform apply`
+
+Terraform will begin applying all the changes to the infrastructure. Be patient, give it a few seconds to finish deploying. It should end with an Apply complete message and state the amount of resources added, changed and destroyed along with the Jenkins server’s public IP address as an output.
+
+![image_alt]()
+
+Make sure to copy and save the Jenkins servers public IP address, as it will needed to access the Jenkins server from a browser.Take note that it only one resource appliead it because i had a error at the firts run and resource had passesd already. 
+
+Step 9: Verify Services — EC2 Instance, Security Group, IAM Role and S3 Bucket
+
+
+
+
+
+
+
+
+
 
 
 
