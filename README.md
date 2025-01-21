@@ -610,7 +610,7 @@ Fill in the fields to create your admin user, then continue.
 
 At the end you should be greated with the awesome message, “Jenkins is ready!”
 
-![image_alt]()
+![image_alt](https://github.com/Tatenda-Prince/Infrastructure-Automation-Deploying-An-EC2-Jenkins-CI-CD-Server-With-Terraform/blob/de36ede23715e7899a614edbfe37b9a9b7c94c37/images/Screenshot%202025-01-21%20131727.png)
 
 
 ## Success!
@@ -620,6 +620,60 @@ You’ve just set up your first Jenkins Server running on an Amazon EC2 instance
 
 
 ## Step 12: Verify that IAM role allows S3 bucket access from Jenkins Server
+
+Head to S3 in the AWS Management Console, select the S3 bucket, then click Upload to upload a file to the S3 bucket.
+
+![image_alt]()
+
+Select your file then click Upload. In this demonstration, I will be uploading the David Wallace Foster "This is water" commencement speech.pdf file.
+
+![image_alt]()
+
+You should now be able to see your file successfully uploaded.
+
+![image_alt]()
+
+Now, connect back to you Jenkins Server using EC2 Instance Connect from the EC2 dashboard.
+
+Run the following command to attempt to list the objects in your S3 bucket including the name of the S3 bucket—
+
+In this demonstration, I used the name of my S3 bucket created by Terraform.
+
+`aws ls s3://<s3_bucket_name>`
+
+As seen below, we can view, list, access the object previously uploaded into the S3 bucket.
+
+Additionally, if I run the command again, without specifying the S3 bucket which the Jenkins server has access to via the IAM role, we will be greeted with an AccessDenied message prompt.
+
+We have verified that we do not have access to other S3 buckets and their contents.
+
+![image_alt]()
+
+
+# Congratulations!
+
+You’ve successfully completed “The power of Terraform”. You’ve learned basic and fundamental concepts of Terraform and leveraged this powerful for infrastructure automation to deploy a Jenkins Server on AWS, along with other resources like Security Groups, S3 buckets and IAM roles.
+
+# Clean up
+
+## Destroy infrastructure
+
+Run the follow command to remove/delete/tear down all the resources previously provisioned from Terraform —
+
+`terraform destroy`
+
+Wait for it to complete. At the end, you should receive a prompt stating Destroy complete along with how many resources were destroyed.
+
+![image_alt]()
+
+
+
+
+
+
+
+
+
 
 
 
