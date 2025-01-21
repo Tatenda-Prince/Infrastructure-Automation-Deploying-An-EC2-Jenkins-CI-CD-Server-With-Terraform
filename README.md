@@ -536,7 +536,7 @@ If you scroll down and click on the EC2’s Security tab you should also be able
 
 Scroll down again and view the inbound rules of the security group. Verify that it matches the desired configuration of allowing ports 22, 443 and 8080 from anywhere.
 
-![image_alt]()
+![image_alt](https://github.com/Tatenda-Prince/Infrastructure-Automation-Deploying-An-EC2-Jenkins-CI-CD-Server-With-Terraform/blob/6db341d25c06e89b53d9653684514cef2568e1d2/images/Screenshot%202025-01-21%20110858.png)
 
 
 Now, head to the S3 dashboard and verify that the S3 bucket was created.
