@@ -557,7 +557,7 @@ Now that we have validated all our resources have been created by Terraform, let
 In the EC2 dashboard, click on the Jenkins server, then click Connect on the top right.
 
 
-![image_alt]()
+![image_alt](https://github.com/Tatenda-Prince/Infrastructure-Automation-Deploying-An-EC2-Jenkins-CI-CD-Server-With-Terraform/blob/a3b5601c12f6bf2ce9f34f5daebbb2fb6e03283b/images/Screenshot%202025-01-21%20111225.png)
 
 
 Select EC2 Instance Connect, then click Connect or SSH Client
