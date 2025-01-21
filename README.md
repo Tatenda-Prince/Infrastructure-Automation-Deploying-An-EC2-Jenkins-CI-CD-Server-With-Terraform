@@ -518,7 +518,7 @@ Note — Make sure to type “yes” to agree to the changes after running this 
 
 Terraform will begin applying all the changes to the infrastructure. Be patient, give it a few seconds to finish deploying. It should end with an Apply complete message and state the amount of resources added, changed and destroyed along with the Jenkins server’s public IP address as an output.
 
-![image_alt]()
+![image_alt](https://github.com/Tatenda-Prince/Infrastructure-Automation-Deploying-An-EC2-Jenkins-CI-CD-Server-With-Terraform/blob/24fde14ca0d3e819e2a702b88628d88cf5514b9c/images/Screenshot%202025-01-21%20110707.png)
 
 Make sure to copy and save the Jenkins servers public IP address, as it will needed to access the Jenkins server from a browser.Take note that it only one resource appliead it because i had a error at the firts run and resource had passesd already. 
 
