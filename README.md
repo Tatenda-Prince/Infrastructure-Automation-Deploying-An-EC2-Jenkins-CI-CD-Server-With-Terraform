@@ -542,7 +542,7 @@ Scroll down again and view the inbound rules of the security group. Verify that 
 Now, head to the S3 dashboard and verify that the S3 bucket was created.
 
 
-![image_alt]()
+![image_alt](https://github.com/Tatenda-Prince/Infrastructure-Automation-Deploying-An-EC2-Jenkins-CI-CD-Server-With-Terraform/blob/d9fbdfc19f4ccce75b7d3711634c5b89b0739434/images/Screenshot%202025-01-21%20111101.png)
 
 
 Click on your bucket, select the Permission tab and hover the mouse over Access. As configured, the S3 bucket is not public.
