@@ -631,7 +631,7 @@ Select your file then click Upload. In this demonstration, I will be uploading t
 
 You should now be able to see your file successfully uploaded.
 
-![image_alt]()
+![image_alt](https://github.com/Tatenda-Prince/Infrastructure-Automation-Deploying-An-EC2-Jenkins-CI-CD-Server-With-Terraform/blob/e5ec413e3bda11b9460f6e63cb562102d94cb101/images/Screenshot%202025-01-21%20132337.png)
 
 Now, connect back to you Jenkins Server using EC2 Instance Connect from the EC2 dashboard.
 
