@@ -664,7 +664,7 @@ Run the follow command to remove/delete/tear down all the resources previously p
 
 Wait for it to complete. At the end, you should receive a prompt stating Destroy complete along with how many resources were destroyed.
 
-![image_alt]()
+![image_alt](https://github.com/Tatenda-Prince/Infrastructure-Automation-Deploying-An-EC2-Jenkins-CI-CD-Server-With-Terraform/blob/55acc36509d22eac6965cecc14e57a39dae96dbd/images/Screenshot%202025-01-21%20134140.png)
 
 
 
