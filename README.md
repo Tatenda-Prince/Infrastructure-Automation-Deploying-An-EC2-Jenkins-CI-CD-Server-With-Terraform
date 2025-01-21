@@ -647,7 +647,7 @@ Additionally, if I run the command again, without specifying the S3 bucket which
 
 We have verified that we do not have access to other S3 buckets and their contents.
 
-![image_alt]()
+![image_alt](https://github.com/Tatenda-Prince/Infrastructure-Automation-Deploying-An-EC2-Jenkins-CI-CD-Server-With-Terraform/blob/200c16950ac2527d570ab9006d468dd3376136af/images/Screenshot%202025-01-21%20133451.png)
 
 
 # Congratulations!
