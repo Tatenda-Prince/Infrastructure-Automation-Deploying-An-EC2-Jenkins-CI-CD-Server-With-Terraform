@@ -507,7 +507,7 @@ Now let’s run the following command to generate a list of all the changes that
 
 You should be able to see listed all the changes Terraform is expect to make to the infrastructure resources. The “+” sign is what is going to be added and the “ — ”is what is going to be destroyed.
 
-![image_alt]()
+![image_alt](https://github.com/Tatenda-Prince/Infrastructure-Automation-Deploying-An-EC2-Jenkins-CI-CD-Server-With-Terraform/blob/7a609d0418316752844961cd66c53e64ac7d1076/images/Screenshot%202025-01-21%20110225.png)
 
 
 Now let’s deploy this bad boy! Run the following command to apply the changes and deploy the infrastructure resources.
