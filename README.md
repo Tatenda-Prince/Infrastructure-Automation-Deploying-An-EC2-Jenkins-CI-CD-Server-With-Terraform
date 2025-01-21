@@ -572,7 +572,7 @@ Once connected, run the following command to get the status of the Jenkins servi
 
 You should be be able to see that the Jenkins server is active (running).
 
-![image_alt]()
+![image_alt](https://github.com/Tatenda-Prince/Infrastructure-Automation-Deploying-An-EC2-Jenkins-CI-CD-Server-With-Terraform/blob/95559ed37bad5b841b405c7c7ff4f3a830627ec0/images/Screenshot%202025-01-21%20130936.png)
 
 Copy and save the Jenkins administrator password which is shown at the end of the first line that start with a date. In this case, to get your password run this command `sudo cat /var/lib/jenkins/secrets/initialAdminPassword`. This will be used to unlock Jenkins once we connect to it over the browser.
 
