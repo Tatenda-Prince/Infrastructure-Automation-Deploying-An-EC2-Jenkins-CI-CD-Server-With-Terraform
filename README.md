@@ -604,6 +604,10 @@ Select Install suggested plugins, then go through the rest of prompts.
 Fill in the fields to create your admin user, then continue.
 
 
+![image_alt](https://github.com/Tatenda-Prince/Infrastructure-Automation-Deploying-An-EC2-Jenkins-CI-CD-Server-With-Terraform/blob/f39c9ee94d5abeb5f5ff4937428dfd518d0b8ffe/images/Screenshot%202025-01-21%20131508.png)
+
+
+
 At the end you should be greated with the awesome message, “Jenkins is ready!”
 
 ![image_alt]()
