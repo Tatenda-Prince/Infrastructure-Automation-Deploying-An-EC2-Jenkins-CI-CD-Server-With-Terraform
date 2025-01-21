@@ -526,7 +526,7 @@ Make sure to copy and save the Jenkins servers public IP address, as it will nee
 
 In the AWS Management Console, head to the EC2 dashboard and verify that the Jenkins server was launched.
 
-![image_alt]()
+![image_alt](https://github.com/Tatenda-Prince/Infrastructure-Automation-Deploying-An-EC2-Jenkins-CI-CD-Server-With-Terraform/blob/950ae66746fff0af9a3ef9749736209ee43c0bce/images/Screenshot%202025-01-21%20110801.png)
 
 
 If you scroll down and click on the EC2’s Security tab you should also be able to see the s3-jekins_role created along with the security group jenkins-sg.
