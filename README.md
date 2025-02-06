@@ -5,7 +5,7 @@
 
 # Technical Architecture
 
-![image_alt]()
+![image_alt](https://github.com/Tatenda-Prince/Infrastructure-Automation-Deploying-An-EC2-Jenkins-CI-CD-Server-With-Terraform/blob/8183b186a30664fbe698259c80899c78f4b704f2/images/Screenshot%202025-02-06%20082710.png)
 
 ## Introduction
 
