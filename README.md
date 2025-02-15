@@ -1,5 +1,4 @@
-# Infrastructure-Automation-Deploying-An-EC2-Jenkins-Server-With-Terraform
-
+# Terraform-Driven EC2 Jenkins CI/CD Server Deployment for Seamless Automation
 
 " The power of Terraform"
 
